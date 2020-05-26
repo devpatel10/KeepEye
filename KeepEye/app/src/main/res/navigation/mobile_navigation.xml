@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.keepeye.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+            app:destination="@id/nav_home_second" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home_second"
+        android:name="com.example.keepeye.ui.home.HomeFragment"
+        android:label="@string/home_second"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+            app:destination="@id/nav_home" />
+
+        <argument
+            android:name="myArg"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_associate"
+        android:name="com.example.keepeye.ui.associate.AssociateFragment"
+        android:label="@string/menu_associate" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.keepeye.ui.logout.LogOutFragment"
+        android:label="@string/menu_logout" />
+    <fragment
+        android:id="@+id/nav_dissociate"
+        android:name="com.example.keepeye.ui.dissociate.DissociateFragment"
+        android:label="@string/menu_dissociate" />
+    <action
+        android:id="@+id/nav_logout2"
+        app:destination="@id/nav_logout" />
+    <action
+        android:id="@+id/nav_associate3"
+        app:destination="@id/nav_associate" />
+    <action
+        android:id="@+id/nav_monitor2"
+        app:destination="@id/nav_dissociate" />
+    <fragment
+        android:id="@+id/nav_monitor"
+        android:name="com.example.keepeye.ui.monitor.MonitorFragment"
+        android:label="@string/menu_monitor"
+        tools:layout="@layout/fragment_monitor" />
+    <action
+        android:id="@+id/nav_dissociate2"
+        app:destination="@id/nav_monitor" />
+    <fragment
+        android:id="@+id/nav_start_journey"
+        android:name="com.example.keepeye.ui.startjourney.StartJourney"
+        android:label="@string/menu_start_journey"
+        tools:layout="@layout/fragment_start_journey" />
+    <action
+        android:id="@+id/action_global_nav_start_journey"
+        app:destination="@id/nav_start_journey" />
+    <fragment
+        android:id="@+id/nav_end_journey"
+        android:name="com.example.keepeye.ui.endjourney.EndJourney"
+        android:label="nav_end_journey"
+        tools:layout="@layout/fragment_end_journey" />
+    <action
+        android:id="@+id/action_global_nav_end_journey"
+        app:destination="@id/nav_end_journey" />
+</navigation>
