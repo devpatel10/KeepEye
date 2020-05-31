@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.keepeye.HomeActivity;
 import com.example.keepeye.MainActivity;
 import com.example.keepeye.R;
+import com.example.keepeye.SpeedAnalysis;
 
 public class EndJourney extends Fragment {
     Button ejBtn;
@@ -35,7 +36,7 @@ public class EndJourney extends Fragment {
             @Override
             public void onClick(View v) {
                 EndJourney.super.onStop();
-                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                Intent intent = new Intent(getActivity(), SpeedAnalysis.class);
                 getActivity().startActivity(intent);
             }
         });
