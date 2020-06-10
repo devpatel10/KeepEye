@@ -12,10 +12,11 @@
 //We here are using MySQL. So set xampp for MySQL
 //Put the files in the file htdocs of repo in the file htdocs in xampp
 //Run and test the app
+Contact me for demo at devpatel.kgp@gmail.com 
 
 /////////////////////////////////////////////////
     For USER RUN
 /////////////////////////////////////////////////
 //Download apk file from the repo and run
-
+Database has not been hosted so won't work. 
 
