@@ -36,6 +36,7 @@ public class EndJourney extends Fragment {
             @Override
             public void onClick(View v) {
                 EndJourney.super.onStop();
+                EndJourney.super.onDestroy();
                 Intent intent = new Intent(getActivity(), SpeedAnalysis.class);
                 getActivity().startActivity(intent);
             }

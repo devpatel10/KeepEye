@@ -62,59 +62,65 @@ public class StartJourneyActivity extends FragmentActivity implements OnMapReady
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
+
                     if(prefConfig.readType().equals("parent"))
                     {
                         mMap.clear();
                         final String[] latlng = new String[1];
+                        double latitude;
+
                         Call<User> call=MainActivity.apiInterface.getLatLng(prefConfig.readUsername());
                         call.enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
 
                                 latlng[0] =response.body().getResponse().toString();
-                                prefConfig.displayToast("LatLng read");
+                                //prefConfig.displayToast("LatLng read : " + latlng[0]);
+                                String[] Latlng = latlng[0].split(",");
+                                double latitude = Double.parseDouble(Latlng[0]);
 
-                            }
+                                double longitude = Double.parseDouble(Latlng[1]);
+                               // prefConfig.displayToast(""+latitude+" "+longitude);
+                                LatLng latLng =new LatLng(latitude,longitude);
+                               Geocoder geocoder=new Geocoder(getApplicationContext());
+                                try {
+                                    List<Address> addressList=geocoder.getFromLocation(latitude,longitude,1);
+                                    String str= addressList.get(0).getAddressLine(0);
+                                    str+=" , "+addressList.get(0).getLocality();
+                                    prefConfig.displayToast(str);
+                                    mMap.addMarker(new MarkerOptions().position(latLng).title(str));
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,18f));
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                    }
 
                             @Override
                             public void onFailure(Call<User> call, Throwable t) {
                                 prefConfig.displayToast("Error");
                             }
                         });
-                        String[] Latlng = latlng[0].split(",");
-                        double latitude = Double.parseDouble(Latlng[0]);
-                        double longitude = Double.parseDouble(Latlng[1]);
-                        LatLng latLng =new LatLng(latitude,longitude);
-                        Geocoder geocoder=new Geocoder(getApplicationContext());
-                        try {
-                            List<Address> addressList=geocoder.getFromLocation(latitude,longitude,1);
-                            String str= addressList.get(0).getAddressLine(0);
-                            str+=" , "+addressList.get(0).getLocality();
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,18f));
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     }
-                    else
+                    else if(prefConfig.readType().equals("child"))
                     {
                         mMap.clear();
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
                         LatLng latLng =new LatLng(latitude,longitude);
-                        String mLatLong = "" + latLng.latitude + ", " + latLng.longitude;
+                        String mLatLong = "" + latLng.latitude + "," + latLng.longitude;
 
                         Call<User> call=MainActivity.apiInterface.updateLatLng(prefConfig.readUsername(),mLatLong);
                         call.enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
                                 if (response.body().getResponse().equals("ok")) {
-                                    prefConfig.displayToast("Writing LatLng");
+                                   // prefConfig.displayToast("Writing LatLng");
                                 }
                                 else if(response.body().getResponse().equals("error"))
                                 {
-                                    prefConfig.displayToast("Kuch Load hua hai");
+                                    prefConfig.displayToast("Error");
                                 }
                             }
 
@@ -157,20 +163,39 @@ public class StartJourneyActivity extends FragmentActivity implements OnMapReady
         else if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
-                @Override
                 public void onLocationChanged(Location location) {
-                    if(prefConfig.readType()=="parent")
+
+                    if(prefConfig.readType().equals("parent"))
                     {
                         mMap.clear();
                         final String[] latlng = new String[1];
+                        double latitude;
+
                         Call<User> call=MainActivity.apiInterface.getLatLng(prefConfig.readUsername());
                         call.enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
 
-                                latlng[0] =response.body().getResponse();
-                                prefConfig.displayToast("LatLng read");
+                                latlng[0] =response.body().getResponse().toString();
+                                //prefConfig.displayToast("LatLng read : " + latlng[0]);
+                                String[] Latlng = latlng[0].split(",");
+                                double latitude = Double.parseDouble(Latlng[0]);
 
+                                double longitude = Double.parseDouble(Latlng[1]);
+                                // prefConfig.displayToast(""+latitude+" "+longitude);
+                                LatLng latLng =new LatLng(latitude,longitude);
+                                Geocoder geocoder=new Geocoder(getApplicationContext());
+                                try {
+                                    List<Address> addressList=geocoder.getFromLocation(latitude,longitude,1);
+                                    String str= addressList.get(0).getAddressLine(0);
+                                    str+=" , "+addressList.get(0).getLocality();
+                                    prefConfig.displayToast(str);
+                                    mMap.addMarker(new MarkerOptions().position(latLng).title(str));
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,18f));
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
                             @Override
@@ -178,40 +203,26 @@ public class StartJourneyActivity extends FragmentActivity implements OnMapReady
                                 prefConfig.displayToast("Error");
                             }
                         });
-                        String[] Latlng = latlng[0].split(",");
-                        double latitude = Double.parseDouble(Latlng[0]);
-                        double longitude = Double.parseDouble(Latlng[1]);
-                        LatLng latLng =new LatLng(latitude,longitude);
-                        Geocoder geocoder=new Geocoder(getApplicationContext());
-                        try {
-                            List<Address> addressList=geocoder.getFromLocation(latitude,longitude,1);
-                            String str= addressList.get(0).getAddressLine(0);
-                            str+=" , "+addressList.get(0).getLocality();
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,18f));
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                     }
-                    else
+                    else if(prefConfig.readType().equals("child"))
                     {
                         mMap.clear();
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
                         LatLng latLng =new LatLng(latitude,longitude);
-                        String mLatLong = "" + latLng.latitude + ", " + latLng.longitude;
+                        String mLatLong = "" + latLng.latitude + "," + latLng.longitude;
 
                         Call<User> call=MainActivity.apiInterface.updateLatLng(prefConfig.readUsername(),mLatLong);
                         call.enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
                                 if (response.body().getResponse().equals("ok")) {
-                                    prefConfig.displayToast("Writing LatLng");
+                                    //prefConfig.displayToast("Writing LatLng");
                                 }
                                 else if(response.body().getResponse().equals("error"))
                                 {
-                                    prefConfig.displayToast("Kuch Load hua hai");
+                                    prefConfig.displayToast("Error");
                                 }
                             }
 
@@ -232,7 +243,6 @@ public class StartJourneyActivity extends FragmentActivity implements OnMapReady
                             e.printStackTrace();
                         }
                     }
-
 
                 }
 
@@ -248,12 +258,6 @@ public class StartJourneyActivity extends FragmentActivity implements OnMapReady
 
                 @Override
                 public void onProviderDisabled(String provider) {
-
-                }
-                private void requestLocation(){
-                    Criteria criteria=new Criteria();
-                    criteria.setAccuracy(Criteria.ACCURACY_FINE);
-                    criteria.setPowerRequirement(Criteria.POWER_HIGH);
 
                 }
             });

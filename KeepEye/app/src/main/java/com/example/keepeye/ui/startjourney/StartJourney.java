@@ -40,7 +40,8 @@ public class StartJourney extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), StartJourneyActivity.class);
-                getActivity().startActivity(intent);
+                startActivity(intent);
+                ((Activity)getContext()).finish();
             }
         });
         return view;

@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
             }
             else
             {
-               getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,new LoginFragment()).commit();
+               // Intent intent = new Intent(this, HomeActivity.class);
+               // startActivity(intent);
+              getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,new LoginFragment()).commit();
             }
         }
     }
@@ -49,11 +51,14 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
     public void performLogIn(String name,String username) {
         prefConfig.writeName(name);
         prefConfig.writeUsername(username);
-        final String[] type = {new String()};
+        final String[] type = new String[1];
         Call<User> call=MainActivity.apiInterface.getType(username);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                type[0]=response.body().getResponse();
+                prefConfig.writeType(type[0]);
+                prefConfig.displayToast(prefConfig.readType());
                 type[0] =response.body().getResponse();
             }
             @Override
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
             }
         });
 
-        prefConfig.writeType(type[0]);
+
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
