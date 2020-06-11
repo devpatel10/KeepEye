@@ -11,6 +11,7 @@
 //Download and install xampp for hosting remote database
 //We here are using MySQL. So set xampp for MySQL
 //Put the files in the file htdocs of repo in the file htdocs in xampp
+//Make sure you have allowed Location permission to app.
 //Run and test the app
 Contact me for demo at devpatel.kgp@gmail.com 
 
