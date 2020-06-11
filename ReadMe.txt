@@ -7,7 +7,7 @@
 //Open the project with Android studio software
 //Wait for build and Gradle to finish
 //Make sure you have Internet connectivity throughout
-//Make two virtual devices of any Type , preferred Nexus 5 API R(both)
+//Make two virtual devices of any Type , preferred Pixel 2 API 30(both)
 //Download and install xampp for hosting remote database
 //We here are using MySQL. So set xampp for MySQL
 //Put the files in the file htdocs of repo in the file htdocs in xampp
