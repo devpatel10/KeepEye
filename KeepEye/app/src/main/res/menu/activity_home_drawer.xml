@@ -22,6 +22,7 @@
             android:title="@string/menu_monitor" />
         <item
             android:id="@+id/nav_start_journey"
+            android:icon="@android:drawable/ic_menu_myplaces"
             android:title="@string/menu_start_journey" />
         <item
             android:id="@+id/nav_end_journey"

@@ -88,7 +88,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                prefConfig.displayToast(username+" "+password);
+                prefConfig.displayToast(username+" "+t);
             }
         });
         Username.setText("");

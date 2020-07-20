@@ -26,6 +26,16 @@ public class PrefConfig
     {
         return sharedPreferences.getBoolean(context.getString(R.string.pref_login_status),false);
     }
+    public void writeJourneyStatus(boolean status)
+    {
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putBoolean(context.getString(R.string.pref_journey_status),status);
+        editor.commit();
+    }
+    public boolean readJourneyStatus()
+    {
+        return sharedPreferences.getBoolean(context.getString(R.string.pref_journey_status),false);
+    }
     public void writeName(String name)
     {
         SharedPreferences.Editor editor=sharedPreferences.edit();

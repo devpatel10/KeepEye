@@ -35,8 +35,7 @@ public class EndJourney extends Fragment {
         ejBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EndJourney.super.onStop();
-                EndJourney.super.onDestroy();
+                MainActivity.prefConfig.writeJourneyStatus(false);
                 Intent intent = new Intent(getActivity(), SpeedAnalysis.class);
                 getActivity().startActivity(intent);
             }

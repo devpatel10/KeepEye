@@ -39,6 +39,7 @@ public class StartJourney extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity.prefConfig.writeJourneyStatus(true);
                 Intent intent = new Intent(getActivity(), StartJourneyActivity.class);
                 startActivity(intent);
                 ((Activity)getContext()).finish();

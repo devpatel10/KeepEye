@@ -62,12 +62,15 @@ public class StartJourneyActivity extends FragmentActivity implements OnMapReady
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-
-                    if(prefConfig.readType().equals("parent"))
+                    if(prefConfig.readType().equals("parent") && prefConfig.readJourneyStatus()==false)
+                    {
+                        finish();
+                    }
+                    if(prefConfig.readType().equals("parent") && prefConfig.readJourneyStatus()==true)
                     {
                         mMap.clear();
                         final String[] latlng = new String[1];
-                        double latitude;
+
 
                         Call<User> call=MainActivity.apiInterface.getLatLng(prefConfig.readUsername());
                         call.enqueue(new Callback<User>() {
@@ -103,7 +106,7 @@ public class StartJourneyActivity extends FragmentActivity implements OnMapReady
                         });
 
                     }
-                    else if(prefConfig.readType().equals("child"))
+                    else if(prefConfig.readType().equals("child") )
                     {
                         mMap.clear();
                         double latitude = location.getLatitude();

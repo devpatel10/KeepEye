@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
             public void onResponse(Call<User> call, Response<User> response) {
                 type[0]=response.body().getResponse();
                 prefConfig.writeType(type[0]);
-                prefConfig.displayToast(prefConfig.readType());
+                prefConfig.displayToast("Welcome "+prefConfig.readName());
                 type[0] =response.body().getResponse();
             }
             @Override
