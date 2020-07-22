@@ -42,7 +42,6 @@ public class StartJourney extends Fragment {
                 MainActivity.prefConfig.writeJourneyStatus(true);
                 Intent intent = new Intent(getActivity(), StartJourneyActivity.class);
                 startActivity(intent);
-                ((Activity)getContext()).finish();
             }
         });
         return view;
